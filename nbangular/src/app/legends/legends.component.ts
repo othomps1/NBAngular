@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Legend } from '../legend';
+import { LEGENDS } from '../real-legends';
 
 @Component({
   selector: 'app-legends',
@@ -7,14 +8,16 @@ import { Legend } from '../legend';
   styleUrls: ['./legends.component.css']
 })
 export class LegendsComponent implements OnInit {
-  legend: Legend = {
-  id: 1,
-  name: 'Michael Jordan'
-};
+
+  legend = LEGENDS;
+  selectedLegend: Legend;
 
   constructor() { }
 
   ngOnInit() {
   }
-
+  
+  onSelect(legend: Legend): void {
+    this.selectedLegend = legend;
+  }
 }
