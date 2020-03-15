@@ -1,17 +1,35 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { Legend } from '../legend';
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { Location } from '@angular/common';
+
+import { Legend }         from '../legend';
+import { LegendService }  from '../legend.service';
 
 @Component({
   selector: 'app-legend-detail',
   templateUrl: './legend-detail.component.html',
-  styleUrls: ['./legend-detail.component.css']
+  styleUrls: [ './legend-detail.component.css' ]
 })
 export class LegendDetailComponent implements OnInit {
-  @Input() legend: Legend;
+  legend: Legend;
 
-  constructor() { }
+  constructor(
+    private route: ActivatedRoute,
+    private legendService: LegendService,
+    private location: Location
+  ) {}
 
-  ngOnInit() {
+  ngOnInit(): void {
+    this.getLegend();
   }
 
+  getLegend(): void {
+    const id = +this.route.snapshot.paramMap.get('id');
+    this.legendService.getLegend(id)
+      .subscribe(legend => this.legend = legend);
+  }
+
+  goBack(): void {
+    this.location.back();
+  }
 }

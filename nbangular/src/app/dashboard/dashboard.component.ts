@@ -1,15 +1,14 @@
 import { Component, OnInit } from '@angular/core';
-
 import { Legend } from '../legend';
 import { LegendService } from '../legend.service';
 
 @Component({
-  selector: 'app-legends',
-  templateUrl: './legends.component.html',
-  styleUrls: ['./legends.component.css']
+  selector: 'app-dashboard',
+  templateUrl: './dashboard.component.html',
+  styleUrls: [ './dashboard.component.css' ]
 })
-export class LegendsComponent implements OnInit {
-  legends: Legend[];
+export class DashboardComponent implements OnInit {
+  legends: Legend[] = [];
 
   constructor(private legendService: LegendService) { }
 
@@ -19,6 +18,6 @@ export class LegendsComponent implements OnInit {
 
   getLegends(): void {
     this.legendService.getLegends()
-    .subscribe(legends => this.legends = legends);
+      .subscribe(legends => this.legends = legends.slice(1, 5));
   }
 }
